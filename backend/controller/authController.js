@@ -24,7 +24,7 @@ export const registration = async (req, res) => {
        res.cookie("token", token, { 
         httpOnly: true,
         secure:false,
-        sameSite:"strict",
+        // sameSite:"strict",
         maxAge: 1000 * 60 * 60 * 24 * 7,
      });
 
@@ -53,7 +53,7 @@ export const login = async (req, res) => {
         res.cookie("token", token, { 
             httpOnly: true,
             secure:false,
-            sameSite:"strict",
+            // sameSite:"strict",
             maxAge: 1000 * 60 * 60 * 24 * 7,
          });
         res.status(200).json({ message: "User logged in successfully" });
@@ -83,7 +83,7 @@ export const googlelogin = async (req, res) => {
         res.cookie("token", token, { 
             httpOnly: true,
             secure:false,
-            sameSite:"strict",
+            // sameSite:"strict",
             maxAge: 1000 * 60 * 60 * 24 * 7,
          });
         res.status(200).json(user);
