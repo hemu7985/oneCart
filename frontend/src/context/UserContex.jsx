@@ -12,7 +12,7 @@ const UserContextProvider = ({ children }) => {
 
   const getCurrentUser = async () => {
     try {
-      const result = await axios.get(serverUrl+"/api/user/getcurrentuser", {
+      const result = await axios.get("https://onecart-157h.onrender.com/api/user/getcurrentuser", {
         withCredentials: true,
       })
       setUserData(result.data)

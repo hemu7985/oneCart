@@ -23,8 +23,8 @@ export const registration = async (req, res) => {
        const token = await genToken(user._id)
        res.cookie("token", token, { 
         httpOnly: true,
-        secure:false,
-        // sameSite:"strict",
+        secure: true,
+        sameSite:"None",
         maxAge: 1000 * 60 * 60 * 24 * 7,
      });
 
@@ -50,10 +50,10 @@ export const login = async (req, res) => {
             return res.status(400).json({ error: "Invalid credentials" });
         }
         const token = await genToken(user._id)
-        res.cookie("token", token, { 
-            httpOnly: true,
-            secure:false,
-            // sameSite:"strict",
+       res.cookie("token", token, { 
+        httpOnly: true,
+        secure: true,
+        sameSite:"None",
             maxAge: 1000 * 60 * 60 * 24 * 7,
          });
         res.status(200).json({ message: "User logged in successfully" });
@@ -81,9 +81,9 @@ export const googlelogin = async (req, res) => {
        }
         const token = await genToken(user._id)
         res.cookie("token", token, { 
-            httpOnly: true,
-            secure:false,
-            // sameSite:"strict",
+        httpOnly: true,
+        secure: true,
+        sameSite:"None",
             maxAge: 1000 * 60 * 60 * 24 * 7,
          });
         res.status(200).json(user);
@@ -106,10 +106,10 @@ export const adminLogin = async(req, res) => {
 
       if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
          const token = await genToken1(email)
-        res.cookie("token", token, { 
-            httpOnly: true,
-            secure:false,
-            // sameSite:"strict",
+       res.cookie("token", token, { 
+        httpOnly: true,
+        secure: true,
+        sameSite:"None",
             maxAge: 1000 * 60 * 60 * 24 * 1,
          });
         res.status(200).json(token);
