@@ -5,17 +5,17 @@ import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
 
 function Order() {
-    let [orderData,setOrderData] = useState([])
-    let {currency} = useContext(shopDataContext)
-    let {serverUrl} = useContext(authDataContext)
+  let [orderData, setOrderData] = useState([])
+  let { currency } = useContext(shopDataContext)
+  let { serverUrl } = useContext(authDataContext)
 
-    const loadOrderData = async () => {
-       try {
-      const result = await axios.post(serverUrl + '/api/order/userorder',{},{withCredentials:true})
-      if(result.data){
+  const loadOrderData = async () => {
+    try {
+      const result = await axios.post(serverUrl + '/api/order/userorder', {}, { withCredentials: true })
+      if (result.data) {
         let allOrdersItem = []
-        result.data.map((order)=>{
-          order.items.map((item)=>{
+        result.data.map((order) => {
+          order.items.map((item) => {
             item['status'] = order.status
             item['payment'] = order.payment
             item['paymentMethod'] = order.paymentMethod
@@ -28,54 +28,79 @@ function Order() {
     } catch (error) {
       console.log(error)
     }
-    }
+  }
 
-useEffect(()=>{
- loadOrderData()
-},[])
-
+  useEffect(() => {
+    loadOrderData()
+  }, [])
 
   return (
-    <div className='w-[99vw] min-h-[100vh] p-[20px] pb-[150px]  overflow-hidden bg-gradient-to-l from-[#141414] to-[#0c2025] '>
-      <div className='h-[8%] w-[100%] text-center mt-[80px]'>
+    <div className='w-full min-h-screen p-4 md:p-8 lg:p-10 pb-[120px] bg-gradient-to-l from-[#141414] to-[#0c2025] overflow-y-auto'>
+      
+      {/* Page Title */}
+      <div className='text-center mt-[80px] mb-8'>
         <Title text1={'MY'} text2={'ORDER'} />
       </div>
-      <div className=' w-[100%] h-[92%] flex flex-wrap gap-[20px]'>
-        {
-         orderData.map((item,index)=>(
-            <div key={index} className='w-[100%] h-[10%] border-t border-b '>
-                <div className='w-[100%] h-[80%] flex items-start gap-6 bg-[#51808048]  py-[10px] px-[20px] rounded-2xl relative '>
-                    <img src={item.image1} alt="" className='w-[130px] h-[130px] rounded-md '/>
-                    <div className='flex items-start justify-center flex-col gap-[5px]'>
-                    <p className='md:text-[25px] text-[20px] text-[#f3f9fc]'>{item.name}</p>
-                    <div className='flex items-center gap-[8px]   md:gap-[20px]'>
-                        <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>{currency} {item.price}</p>
-                      <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Quantity: {item.quantity}</p>
-                      <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Size: {item.size}</p>
-                    </div>
-                    <div className='flex items-center'>
-                     <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Date: <span className='text-[#e4fbff] pl-[10px] md:text-[16px] text-[11px]'>{new Date(item.date).toDateString()}</span></p>
-                    </div>
-                    <div className='flex items-center'>
-                      <p className='md:text-[16px] text-[12px] text-[#aaf4e7]'>Payment Method :{item.paymentMethod}</p>
-                    </div>
-                    <div className='absolute md:left-[55%] md:top-[40%] right-[2%] top-[2%]  '>
-                        <div className='flex items-center gap-[5px]'>
-                      <p className='min-w-2 h-2 rounded-full bg-green-500'></p> 
-                      <p className='md:text-[17px] text-[10px] text-[#f3f9fc]'>{item.status}</p>
 
-                    </div>
-
-                    </div>
-                     <div className='absolute md:right-[5%] right-[1%] md:top-[40%] top-[70%]'> 
-                    <button className='md:px-[15px] px-[5px] py-[3px] md:py-[7px] rounded-md bg-[#101919] text-[#f3f9fc] text-[12px] md:text-[16px] cursor-pointe active:bg-slate-500' onClick={loadOrderData} >Track Order</button>
-                  </div>
-                    </div>
-                </div>
-               
+      {/* Orders List */}
+      <div className='flex flex-col gap-6'>
+        {orderData.map((item, index) => (
+          <div
+            key={index}
+            className='w-full bg-[#51808048] border border-gray-600 rounded-xl shadow-md p-4 flex flex-col md:flex-row gap-4 md:gap-6'
+          >
+            {/* Product Image */}
+            <div className='flex-shrink-0 flex items-center justify-center'>
+              <img
+                src={item.image1}
+                alt={item.name}
+                className='w-[100px] h-[100px] md:w-[130px] md:h-[130px] rounded-md object-cover'
+              />
             </div>
-         ))
-        }
+
+            {/* Order Info */}
+            <div className='flex flex-col flex-1 gap-2 text-white'>
+              <p className='text-[18px] md:text-[22px] lg:text-[24px] font-semibold text-[#f3f9fc]'>
+                {item.name}
+              </p>
+
+              <div className='flex flex-wrap gap-4 text-[#aaf4e7] text-[12px] md:text-[16px]'>
+                <p>{currency} {item.price}</p>
+                <p>Quantity: {item.quantity}</p>
+                <p>Size: {item.size}</p>
+              </div>
+
+              <p className='text-[#aaf4e7] text-[12px] md:text-[15px]'>
+                Date: 
+                <span className='text-[#e4fbff] ml-2'>
+                  {new Date(item.date).toDateString()}
+                </span>
+              </p>
+
+              <p className='text-[#aaf4e7] text-[12px] md:text-[15px]'>
+                Payment Method: <span className='text-white'>{item.paymentMethod}</span>
+              </p>
+
+              {/* Status + Track Order Button */}
+              <div className='flex flex-col md:flex-row md:items-center md:justify-between mt-2 gap-2'>
+                
+                {/* Status */}
+                <div className='flex items-center gap-2'>
+                  <span className='w-3 h-3 rounded-full bg-green-500'></span>
+                  <p className='text-[#f3f9fc] text-[12px] md:text-[15px]'>{item.status}</p>
+                </div>
+
+                {/* Track Order Button */}
+                <button
+                  className='px-3 py-2 md:px-5 md:py-2 rounded-md bg-[#101919] text-[#f3f9fc] text-[12px] md:text-[14px] hover:bg-[#1e2d2d] transition active:scale-95'
+                  onClick={loadOrderData}
+                >
+                  Track Order
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )
