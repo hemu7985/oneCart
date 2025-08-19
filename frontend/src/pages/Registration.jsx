@@ -11,7 +11,7 @@ import { authDataContext } from '../context/AuthContext';
 import axios from 'axios';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
-import { getCurrentUser } from '../../../backend/controller/userController';
+// import { getCurrentUser } from '../../../backend/controller/userController';
 
 
 const Registration = () => {
