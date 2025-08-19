@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { PiEyeSlash } from "react-icons/pi";
 import { FaEye } from "react-icons/fa";
 
-import { useState } from 'react';
-import { useContext } from 'react';
-import { authDataContext } from '../context/authContext';
+import { useState,useContext } from 'react';
+// import {  } from 'react';
+import { authDataContext } from '../context/AuthContext';
 import axios from 'axios';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
