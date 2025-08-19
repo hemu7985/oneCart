@@ -27,7 +27,10 @@ import { userDataContext } from '../context/UserContex';
       const handleLogin = async (e) => {
         e.preventDefault()
         try {
-            const result = await axios.post(serverUrl+'/api/auth/login', {email,password},{withCredentials:true})
+            const result = await axios.post(serverUrl+'/api/auth/login', {email,password},{
+    headers: {
+      'Content-Type': 'application/json'
+    }, withCredentials:true})
             console.log(result.data)
               await getCurrentUser();
             navigate("/")
