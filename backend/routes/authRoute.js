@@ -8,7 +8,7 @@ const authRouter = express.Router();
 
 authRouter.post("/registration", registration);
 authRouter.post("/login", login);
-authRouter.get("/logout", logout);
+authRouter.post("/logout", logout);
 authRouter.post("/googlelogin", googlelogin);
 authRouter.post("/adminlogin", adminLogin);
 
