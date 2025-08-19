@@ -29,6 +29,7 @@ import { userDataContext } from '../context/UserContex';
         try {
             const result = await axios.post(serverUrl+'/api/auth/login', {email,password},{withCredentials:true})
             console.log(result.data)
+              await getCurrentUser();
             navigate("/")
             }
          catch (error) {
@@ -45,8 +46,7 @@ import { userDataContext } from '../context/UserContex';
     let email = user.email;
 
  
-    const result = await axios.post(
-      serverUrl+'/api/auth/googlelogin',
+    const result = await axios.post(serverUrl+'/api/auth/googlelogin',
       { name, email },
       { withCredentials: true }
     );
