@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174","https://one-cart-mauve.vercel.app/","https://one-cart-3zbv.vercel.app/"],
+    origin: ["http://localhost:5173", "http://localhost:5174","https://one-cart-mauve.vercel.app","https://one-cart-3zbv.vercel.app"],
     credentials: true,
 }));
 
